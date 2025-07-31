@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>执着一生</title>
+    <style>
+        .wechat-bg { background: #e5e5e5; padding: 20px; }
+        .msg-block { 
+            background: #d0e8c2; 
+            border-radius: 8px; 
+            padding: 12px; 
+            margin: 15px 0 5px 60%; 
+            position: relative; 
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .time { 
+            text-align: center; 
+            color: #888; 
+            font-size: 12px; 
+            margin: 8px 0;
+        }
+        .editable { 
+            border: 1px dashed #4CAF50; 
+            padding: 8px; 
+            margin: 5px 0; 
+            min-height: 20px;
+        }
+        .admin-panel {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 15px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+    </style>
+</head>
+<body class="wechat-bg">
+    <div class="admin-panel">
+        <h3>编辑模式</h3>
+        <button onclick="enableEdit()">编辑内容</button>
+        <button onclick="saveContent()">保存修改</button>
+        <button onclick="window.location.reload()">重置</button>
+    </div>
+
+    <div class="time">wx.agarden.com.cn</div>
+    <div class="time">2025年7月28日</div>
+
+    <div class="msg-block">
+        <div class="editable" contenteditable="false">执着一生 23+26+47各50</div>
+    </div>
+    
+    <!-- 更多消息块... -->
+    
+    <script>
+        // 从本地存储加载内容
+        document.addEventListener('DOMContentLoaded', () => {
+            if(localStorage.getItem('chatData')) {
+                document.body.innerHTML = localStorage.getItem('chatData');
+            }
+        });
+
+        function enableEdit() {
+            document.querySelectorAll('.editable').forEach(el => {
+                el.contentEditable = true;
+                el.style.backgroundColor = '#f8f8d8';
+            });
+        }
+
+        function saveContent() {
+            const htmlContent = document.body.innerHTML;
+            localStorage.setItem('chatData', htmlContent);
+            alert('修改已保存！刷新页面查看效果');
+            document.querySelectorAll('.editable').forEach(el => {
+                el.contentEditable = false;
+                el.style.backgroundColor = '';
+            });
+        }
+    </script>
+</body>
+</html>
